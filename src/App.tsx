@@ -5,7 +5,6 @@ import PageContent from './components/PageContent';
 
 // tests
 // readme
-// cacheing
 
 const App: React.FC = () => {
     return (

@@ -5,11 +5,12 @@ import { ForecastParams } from '../models/ForecastParams';
 import { Units } from '../models/Units';
 import forecastServiceFactory from '../services/Forecast.service';
 import localStorageService from '../services/LocalStorage.service';
+import validationService from '../services/Validation.service';
 import ForecastDisplay from './ForecastDisplay';
 import ZipInput from './ZipInput';
 
 const PageContent = () => {
-    let [searchParams] = useSearchParams();
+    let [searchParams, setSearchParams] = useSearchParams();
 
     const defaultUnits = 'us';
 
@@ -22,13 +23,13 @@ const PageContent = () => {
     const forecastService = forecastServiceFactory({ setData, setError, setLoading });
 
     const doForecast = (params?: ForecastParams) => {
-        if (!params) {
+        if (!params || !validationService.validateForecastParams(params)) {
             // Use current state if specific params are not supplied
             params = { zip, units };
         }
-        // TODO: improve validation
-        if (params.zip && params.units) {
+        if (validationService.validateForecastParams(params)) {
             forecastService.forecast(params);
+            setSearchParams({ zip: params.zip, units: params.units });
             localStorageService.storeParams(params);
         }
     };
