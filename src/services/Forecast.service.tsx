@@ -2,6 +2,7 @@ import axios from 'axios';
 import { Forecast } from '../models/Forecast';
 import { ForecastParams } from '../models/ForecastParams';
 import { Units } from '../models/Units';
+import localStorageService from './LocalStorage.service';
 
 interface ForecastService {
     forecast: (zip: string, units: Units) => void;
@@ -17,12 +18,15 @@ const forecastServiceFactory = ({ setData, setError, setLoading }: Parameters) =
     const forecastService: ForecastService = {
         forecast: async function (zip, units) {
             // validate
-            setLoading(true);
             const params: ForecastParams = { zip, units };
             if (zip && units) {
+                setLoading(true);
                 axios
                     .get('http://localhost:3001/forecast', { params })
-                    .then((response) => setData(response.data.slice(0, 72) as Forecast[]))
+                    .then((response) => {
+                        setData(response.data.slice(0, 72) as Forecast[]);
+                        localStorageService.storeParams(params);
+                    })
                     .catch((error) => setError(error))
                     .finally(() => setLoading(false));
             }

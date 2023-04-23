@@ -21,31 +21,15 @@ const PageContent = () => {
     };
 
     useEffect(() => {
-        // const zipParam = searchParams.get('zip');
-        // const useMetricParam = searchParams.get('useMetric');
-        // if (useMetricParam === 'true') {
-        //     setUseMetric(true);
-        // }
-        // if (zipParam) {
-        //     setZip(zipParam);
-        //     getForecast();
-        // }
         // Check localStorage for previously used values
         const storedParams = localStorageService.getParams();
         if (storedParams?.zip && storedParams.units) {
             console.log(storedParams);
             setZip(storedParams.zip);
             setUnits(storedParams.units);
-            // getForecast(storedParams.zip, storedParams.useMetric);
+            forecastService.forecast(storedParams.zip, storedParams.units);
         }
     }, []);
-
-    // useEffect(() => {
-    //     mutate();
-    // }, [params]);
-
-    if (error) return <div>An error has occurred.</div>;
-    // if (!data) return <div>Loading...</div>;
 
     return (
         <div className="App-content">
@@ -56,7 +40,7 @@ const PageContent = () => {
                 setUnits={setUnits}
                 onSubmit={zipSubmit}
             />
-            <ForecastDisplay forecasts={data} loading={loading} />
+            <ForecastDisplay forecasts={data} loading={loading} error={error} />
         </div>
     );
 };

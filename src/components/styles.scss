@@ -8,7 +8,8 @@
 
     .input {
         width: 100%;
-        padding: 20px 30px;
+        min-width: 300px;
+        padding: 17px 30px;
         line-height: 30px;
         font-size: 25px;
         border-radius: 50px;
@@ -25,30 +26,30 @@
     .zip-submit,
     .toggle {
         font-size: 15px;
-        height: 35px;
+        height: 30px;
         text-transform: uppercase;
         color: white;
         border: none;
         position: absolute;
         border-radius: 8px;
-        background-color: #0193cf;
+        background-color: rgb(9, 62, 121);
         box-shadow: 0 0 7px black;
         transition: 0.2s all;
 
         &:hover {
-            background-color: #1a9ed4;
+            background-color: #0183bf;
             box-shadow: 0 0 4px black;
         }
 
         &:active {
-            transform: scale(0.8);
+            transform: scale(0.9);
             box-shadow: none;
         }
     }
 
     .toggle {
         right: 99px;
-        line-height: 35px;
+        line-height: 30px;
         padding: 0 8px;
         font-family: Arial;
 
@@ -140,17 +141,14 @@
 
         .zip-submit,
         .toggle {
-            height: 40px;
+            height: 25px;
             font-size: 13px;
-            box-shadow: 0 0 7px black;
+            box-shadow: 0 0 5px black;
         }
 
         .toggle {
             right: 91px;
-
-            .toggle-selection-labels {
-                font-size: 10px;
-            }
+            line-height: 25px;
         }
 
         .zip-submit {

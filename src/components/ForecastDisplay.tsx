@@ -5,6 +5,7 @@ import ForecastDetail from './ForecastDetail';
 interface Props {
     forecasts: Forecast[];
     loading: boolean;
+    error: any;
 }
 
 interface Dictionary<T> {
@@ -16,8 +17,10 @@ const getDayString = (daysFromToday: number) => {
     return new Date(+new Date().setHours(0, 0, 0, 0) + 86400000 * daysFromToday).toDateString();
 };
 
-const ForecastDisplay = ({ forecasts, loading }: Props) => {
-    if (loading) {
+const ForecastDisplay = ({ forecasts, loading, error }: Props) => {
+    if (error) {
+        return <div>An error has occured</div>;
+    } else if (loading) {
         return <div>Loading...</div>;
     } else if (!forecasts || !forecasts.length) {
         return null;
