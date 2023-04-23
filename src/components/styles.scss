@@ -22,31 +22,35 @@
         }
     }
 
-    .embeded-button {
+    .zip-submit,
+    .toggle {
         font-size: 15px;
-        height: 50px;
+        height: 35px;
         text-transform: uppercase;
         color: white;
         border: none;
         position: absolute;
-        border-radius: 50px;
+        border-radius: 8px;
         background-color: #0193cf;
-        box-shadow: 0 0 10px black;
+        box-shadow: 0 0 7px black;
         transition: 0.2s all;
 
         &:hover {
             background-color: #1a9ed4;
+            box-shadow: 0 0 4px black;
         }
 
         &:active {
             transform: scale(0.8);
-            box-shadow: 0 0 5px black;
+            box-shadow: none;
         }
     }
 
     .toggle {
         right: 99px;
-        width: 75px;
+        line-height: 35px;
+        padding: 0 8px;
+        font-family: Arial;
 
         .toggle-label {
             margin-bottom: 4px;
@@ -57,9 +61,8 @@
         }
 
         .selected {
-            border: 2px solid white;
-            padding: 2px 4px;
-            border-radius: 50px;
+            font-weight: bold;
+            text-decoration: underline;
         }
     }
 
@@ -135,7 +138,8 @@
             padding: 14px 18px;
         }
 
-        .embeded-button {
+        .zip-submit,
+        .toggle {
             height: 40px;
             font-size: 13px;
             box-shadow: 0 0 7px black;

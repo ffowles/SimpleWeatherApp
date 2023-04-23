@@ -4,6 +4,7 @@ import ForecastDetail from './ForecastDetail';
 
 interface Props {
     forecasts: Forecast[];
+    loading: boolean;
 }
 
 interface Dictionary<T> {
@@ -15,8 +16,10 @@ const getDayString = (daysFromToday: number) => {
     return new Date(+new Date().setHours(0, 0, 0, 0) + 86400000 * daysFromToday).toDateString();
 };
 
-const ForecastDisplay = ({ forecasts }: Props) => {
-    if (!forecasts || !forecasts.length) {
+const ForecastDisplay = ({ forecasts, loading }: Props) => {
+    if (loading) {
+        return <div>Loading...</div>;
+    } else if (!forecasts || !forecasts.length) {
         return null;
     }
     const mappedForecasts: Dictionary<Forecast[]> = groupBy(forecasts, (forecast) =>

@@ -1,3 +1,35 @@
-const forecastService = {};
+import axios from 'axios';
+import { Forecast } from '../models/Forecast';
+import { ForecastParams } from '../models/ForecastParams';
+import { Units } from '../models/Units';
 
-export default forecastService;
+interface ForecastService {
+    forecast: (zip: string, units: Units) => void;
+}
+
+interface Parameters {
+    setData: React.Dispatch<React.SetStateAction<Forecast[]>>;
+    setError: React.Dispatch<React.SetStateAction<null>>;
+    setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const forecastServiceFactory = ({ setData, setError, setLoading }: Parameters) => {
+    const forecastService: ForecastService = {
+        forecast: async function (zip, units) {
+            // validate
+            setLoading(true);
+            const params: ForecastParams = { zip, units };
+            if (zip && units) {
+                axios
+                    .get('http://localhost:3001/forecast', { params })
+                    .then((response) => setData(response.data.slice(0, 72) as Forecast[]))
+                    .catch((error) => setError(error))
+                    .finally(() => setLoading(false));
+            }
+        },
+    };
+
+    return forecastService;
+};
+
+export default forecastServiceFactory;

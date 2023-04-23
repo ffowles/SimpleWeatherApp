@@ -1,3 +1,4 @@
+import { Units } from '../models/Units';
 import BasicInput from './BasicInput';
 import Toggle from './Toggle';
 import './styles.scss';
@@ -5,22 +6,17 @@ import './styles.scss';
 interface Props {
     zip: string;
     setZip: React.Dispatch<React.SetStateAction<string>>;
-    useMetric: boolean;
-    setUseMetric: React.Dispatch<React.SetStateAction<boolean>>;
+    units: Units;
+    setUnits: React.Dispatch<React.SetStateAction<Units>>;
     onSubmit: (e: React.FormEvent) => void;
 }
 
-const ZipInput = ({ zip, setZip, useMetric, setUseMetric, onSubmit }: Props) => {
+const ZipInput = ({ zip, setZip, units, setUnits, onSubmit }: Props) => {
+    const onUnitsChange = (option: string) => setUnits(option as Units);
     return (
         <form className="zip-form" onSubmit={onSubmit}>
             <BasicInput value={zip} setValue={setZip} placeholder="Enter a zipcode" />
-            <Toggle
-                label="Units"
-                onLabel="SI"
-                offLabel="US"
-                toggle={useMetric}
-                setToggle={setUseMetric}
-            />
+            <Toggle value={units} options={['si', 'us']} onChange={onUnitsChange} />
             <button className="zip-submit embeded-button" type="submit">
                 Submit
             </button>

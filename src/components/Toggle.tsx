@@ -1,24 +1,26 @@
 import classNames from 'classnames';
 
 interface Props {
-    label: string;
-    onLabel: string;
-    offLabel: string;
-    toggle: boolean;
-    setToggle: React.Dispatch<React.SetStateAction<boolean>>;
+    value: string | undefined;
+    options: [string, string];
+    onChange: (value: string) => void;
 }
 
-const Toggle = ({ label, onLabel, offLabel, toggle, setToggle }: Props) => {
-    var onClasses = classNames({ selected: toggle });
-    var offClasses = classNames({ selected: !toggle });
+const Toggle = ({ value, options, onChange }: Props) => {
+    const option1Classes = classNames({ selected: options[0] === value });
+    const option2Classes = classNames({ selected: options[1] === value });
+    const toggle = () => {
+        if (options[0] === value) {
+            onChange(options[1]);
+        } else {
+            onChange(options[0]);
+        }
+    };
     return (
-        <button className="toggle embeded-button" type="button" onClick={() => setToggle(!toggle)}>
-            <div className="toggle-label">{label}</div>
-            <div className="toggle-selection-labels">
-                <span className={onClasses}>{onLabel}</span> /{' '}
-                <span className={offClasses}>{offLabel}</span>
-            </div>
-        </button>
+        <div className="toggle" onClick={toggle}>
+            <span className={option1Classes}>{options[0]}</span> /{' '}
+            <span className={option2Classes}>{options[1]}</span>
+        </div>
     );
 };
 
