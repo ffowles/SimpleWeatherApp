@@ -3,9 +3,6 @@ import { BrowserRouter } from 'react-router-dom';
 import './App.scss';
 import PageContent from './components/PageContent';
 
-// tests
-// readme
-
 const App: React.FC = () => {
     return (
         <div className="App">
