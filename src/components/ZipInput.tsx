@@ -9,13 +9,14 @@ interface Props {
     units: Units;
     setUnits: React.Dispatch<React.SetStateAction<Units>>;
     onSubmit: (e: React.FormEvent) => void;
+    inputId: string;
 }
 
-const ZipInput = ({ zip, setZip, units, setUnits, onSubmit }: Props) => {
+const ZipInput = ({ zip, setZip, units, setUnits, onSubmit, inputId }: Props) => {
     const onUnitsChange = (option: string) => setUnits(option as Units);
     return (
         <form className="zip-form" onSubmit={onSubmit}>
-            <BasicInput value={zip} setValue={setZip} placeholder="Enter a zipcode" />
+            <BasicInput id={inputId} value={zip} setValue={setZip} placeholder="Enter a zipcode" />
             <Toggle value={units} options={['si', 'us']} onChange={onUnitsChange} />
             <button className="zip-submit embeded-button" type="submit">
                 Submit

@@ -13,6 +13,7 @@ const PageContent = () => {
     let [searchParams, setSearchParams] = useSearchParams();
 
     const defaultUnits = 'us';
+    const inputId = 'zip-input';
 
     const [zip, setZip] = useState('');
     const [units, setUnits] = useState<Units>(defaultUnits);
@@ -37,6 +38,9 @@ const PageContent = () => {
     const zipSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         doForecast();
+        if (document.activeElement?.id === inputId) {
+            (document.activeElement as HTMLInputElement).blur();
+        }
     };
 
     // On page load actions
@@ -62,6 +66,7 @@ const PageContent = () => {
                 doForecast({ zip: storedParams.zip, units: newUnits });
             }
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (
@@ -72,6 +77,7 @@ const PageContent = () => {
                 units={units}
                 setUnits={setUnits}
                 onSubmit={zipSubmit}
+                inputId={inputId}
             />
             <ForecastDisplay forecasts={data} loading={loading} error={error} />
         </div>
